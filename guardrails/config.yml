@@ -1,7 +1,12 @@
 models:
   - type: main
     engine: openai
-    model: gpt-4o-mini
+    model: gemini-3.1-flash-lite
+    parameters:
+      # Gemini via OpenAI-compatible API (falls back when OPENAI_API_KEY unset)
+      base_url: "https://generativelanguage.googleapis.com/v1beta/openai/"
+      # temperature kept low for deterministic rails
+      temperature: 0.0
 
 instructions:
   - type: general
@@ -10,6 +15,7 @@ instructions:
       You ONLY answer questions about internal company HR policies, benefits, and procedures.
       You never reveal personal employee information, salary details of specific individuals,
       or any confidential data. If a question is outside your scope, politely decline.
+      When refusing, always start with "Xin lỗi" and explain you cannot fulfill the request.
 
 rails:
   input:

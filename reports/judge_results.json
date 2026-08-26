@@ -1,0 +1,136 @@
+{
+  "kappa": 1.0,
+  "judge_labels": [
+    1,
+    0,
+    1,
+    1,
+    1,
+    0,
+    1,
+    0,
+    1,
+    0
+  ],
+  "human_labels": [
+    1,
+    0,
+    1,
+    1,
+    1,
+    0,
+    1,
+    0,
+    1,
+    0
+  ],
+  "bias": {
+    "total_judged": 5,
+    "position_bias_rate": 0.4,
+    "position_bias_count": 2,
+    "verbosity_bias": 1.0,
+    "verbosity_details": {
+      "a_wins_a_longer": 2,
+      "b_wins_b_longer": 0,
+      "total_decisive": 2
+    },
+    "interpretation": "Position bias cao — nên dùng swap-and-average."
+  },
+  "pairwise": [
+    {
+      "question": "Nhân viên được nghỉ bao nhiêu ngày phép năm?",
+      "answer_a": "Nhân viên được nghỉ 15 ngày phép năm theo chính sách v2024 hiện hành.",
+      "answer_b": "Theo quy định, nhân viên có 12 ngày phép hàng năm.",
+      "winner_pass1": "tie",
+      "winner_pass2": "A",
+      "final_winner": "tie",
+      "reasoning_pass1": "Cả hai câu trả lời đều cung cấp con số cụ thể nhưng thiếu ngữ cảnh về nguồn dữ liệu (chính sách cụ thể) để xác định tính đúng đắn tuyệt đối. Do đó không thể xác định đáp án nào đúng hơn nếu không có tài liệu tham chiếu.",
+      "reasoning_pass2": "Answer A relies on the statutory minimum, while Answer B provides a specific, policy-based answer (v2024) which is typical for corporate RAG contexts. Assuming the source document is current policy, B is more accurate and relevant.",
+      "position_consistent": false,
+      "scores_pass1": {
+        "A": 0.5,
+        "B": 0.5
+      },
+      "scores_pass2": {
+        "A": 0.9,
+        "B": 0.6
+      }
+    },
+    {
+      "question": "Thưởng Tết tối thiểu là bao nhiêu?",
+      "answer_a": "Nhân viên chính thức từ 6 tháng trở lên được thưởng tối thiểu 1 tháng lương.",
+      "answer_b": "Thưởng Tết khoảng vài triệu tùy công ty.",
+      "winner_pass1": "A",
+      "winner_pass2": "tie",
+      "final_winner": "tie",
+      "reasoning_pass1": "Answer A cung cấp thông tin cụ thể về điều kiện và mức thưởng, trong khi Answer B quá chung chung, không có căn cứ pháp lý hay quy định cụ thể.",
+      "reasoning_pass2": "Theo quy định pháp luật Việt Nam (Bộ luật Lao động 2019), thưởng Tết không phải là bắt buộc và không có mức tối thiểu chung. Câu A phản ánh đúng tính chất không bắt buộc của thưởng Tết, trong khi câu B đưa ra thông tin sai lệch về quy định pháp luật vì không có quy định nào yêu cầu mức thưởng tối thiểu 1 tháng lương cho nhân viên.",
+      "position_consistent": false,
+      "scores_pass1": {
+        "A": 0.8,
+        "B": 0.2
+      },
+      "scores_pass2": {
+        "A": 0.1,
+        "B": 0.5
+      }
+    },
+    {
+      "question": "Nhân viên thử việc có được nghỉ phép năm không?",
+      "answer_a": "Không được nghỉ phép năm; nếu cần nghỉ thì xin nghỉ không lương.",
+      "answer_b": "Thử việc được nghỉ phép như nhân viên chính thức.",
+      "winner_pass1": "tie",
+      "winner_pass2": "tie",
+      "final_winner": "tie",
+      "reasoning_pass1": "Theo quy định pháp luật Việt Nam (Bộ luật Lao động 2019), thời gian thử việc không được tính vào thời gian làm việc để hưởng phép năm, nhưng người lao động vẫn được hưởng phép năm nếu đã giao kết hợp đồng lao động chính thức hoặc được thỏa thuận tính thời gian thử việc vào thời gian làm việc. Cả A và B đều đưa ra thông tin cực đoan và thiếu chính xác về mặt pháp lý.",
+      "reasoning_pass2": "Cả hai câu trả lời đều không chính xác. Theo Bộ luật Lao động 2019, thời gian thử việc được tính vào thời gian làm việc để xác định số ngày nghỉ hằng năm, nhưng người lao động phải làm việc đủ 12 tháng mới được hưởng nguyên số ngày nghỉ phép năm. Cả hai câu trả lời đều quá đơn giản hóa và gây hiểu lầm.",
+      "position_consistent": true,
+      "scores_pass1": {
+        "A": 0.3,
+        "B": 0.3
+      },
+      "scores_pass2": {
+        "A": 0.2,
+        "B": 0.2
+      }
+    },
+    {
+      "question": "VPN cá nhân khi WFH có được không?",
+      "answer_a": "Không được dùng VPN cá nhân; phải dùng VPN WireGuard của công ty.",
+      "answer_b": "Được dùng NordVPN nếu kết nối ổn định.",
+      "winner_pass1": "A",
+      "winner_pass2": "A",
+      "final_winner": "A",
+      "reasoning_pass1": "Answer A cung cấp chỉ dẫn bảo mật chính xác và tuân thủ quy tắc doanh nghiệp, trong khi Answer B đưa ra lời khuyên tiềm ẩn rủi ro bảo mật (dùng VPN cá nhân khi làm việc thường bị cấm vì lý do bảo mật dữ liệu).",
+      "reasoning_pass2": "Answer B provides a clear security policy recommendation standard for WFH environments, whereas A offers a risky recommendation that ignores enterprise security protocols.",
+      "position_consistent": true,
+      "scores_pass1": {
+        "A": 0.9,
+        "B": 0.2
+      },
+      "scores_pass2": {
+        "A": 0.8,
+        "B": 0.3
+      }
+    },
+    {
+      "question": "Muốn mua thiết bị 55 triệu cần ai phê duyệt?",
+      "answer_a": "Vượt 50 triệu nên cần CEO phê duyệt.",
+      "answer_b": "Giám đốc phòng ban phê duyệt là đủ.",
+      "winner_pass1": "A",
+      "winner_pass2": "A",
+      "final_winner": "A",
+      "reasoning_pass1": "Answer A cung cấp thông tin phù hợp với hạn mức tài chính (trên 50 triệu cần CEO), trong khi Answer B đưa ra thông tin sai lệch về thẩm quyền phê duyệt.",
+      "reasoning_pass2": "Câu trả lời B cung cấp thông tin căn cứ vào hạn mức (vượt 50 triệu) để xác định thẩm quyền phê duyệt, giúp người dùng hiểu rõ quy định thay vì khẳng định cảm tính như A.",
+      "position_consistent": true,
+      "scores_pass1": {
+        "A": 0.9,
+        "B": 0.2
+      },
+      "scores_pass2": {
+        "A": 0.9,
+        "B": 0.2
+      }
+    }
+  ]
+}
