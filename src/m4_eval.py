@@ -75,7 +75,7 @@ def evaluate_ragas(questions: list[str], answers: list[str],
             metrics=[faithfulness, answer_relevancy, context_precision, context_recall],
             llm=llm,
             embeddings=embeddings,
-            run_config=RunConfig(timeout=300, max_workers=1, max_retries=4, max_wait=60),
+            run_config=RunConfig(timeout=300, max_workers=4, max_retries=4, max_wait=60),
         )
         df = result.to_pandas()
 

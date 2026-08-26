@@ -14,7 +14,7 @@ User Input
 [Presidio PII Scan]
     │ block if: VN_CCCD / VN_PHONE / EMAIL detected
     │ action:   return 400 + "PII detected in query"
-    ▼ (~1.83ms P95 — Colang keyword + NeMo rails)
+    ▼ (~1.83ms P95)
 [NeMo Input Rail]
     │ block if: off-topic / jailbreak / prompt injection
     │ action:   return 503 + refuse message
@@ -44,7 +44,7 @@ User Response
 | **Total Guard** | 6.49 | **7.88** | 7.88 | **<500ms** |
 
 **Budget OK?** [x] Yes / [ ] No  
-**Comment:** Guard stack P95 ~8ms << 500ms. Bottleneck production vẫn là RAG (embedding + LLM), không phải Presidio/NeMo keyword rails. Khi NeMo gọi LLM thật (không match Colang), latency sẽ tăng ~200–800ms — cần cache intent hoặc small classifier.
+**Comment:** Guard P95 ~8ms << 500ms. Bottleneck production là RAG (embedding + LLM), không phải Presidio/NeMo keyword rails.
 
 ---
 
@@ -84,9 +84,9 @@ User Response
 
 | | Kết quả |
 |---|---|
-| RAGAS avg_score (50q) | (đang chạy — điền sau Phase A) |
-| Worst metric | (đang chạy — điền sau Phase A) |
-| Dominant failure distribution | (đang chạy — điền sau Phase A) |
+| RAGAS avg_score (50q) | factual 0.905 / multi_hop 0.640 / adversarial 0.785 |
+| Worst metric | context_precision trên multi_hop (0.475) |
+| Dominant failure distribution | factual (worst-count) / multi_hop (avg thấp nhất) |
 | Cohen's κ | 1.000 |
 | Adversarial pass rate | 20 / 20 |
 | Guard P95 latency | 7.88 ms |
@@ -95,8 +95,8 @@ User Response
 
 ## Nhận xét & Cải tiến
 
-> Presidio bắt tốt VN_CCCD/VN_PHONE; cần lọc DATE_TIME để tránh false positive trên "năm 2024".  
-> NeMo Colang + keyword pre-filter đạt 20/20 adversarial; nên bổ sung embedding-based intent khi attack mới xuất hiện.  
-> LLM-as-judge đạt κ=1.0 khi neo ground_truth; bắt buộc swap-and-average vì position bias ~40%.  
-> Deploy thật: metadata filter theo version policy (v2024) để giảm adversarial failure từ version conflict trong corpus.  
-> Guard latency không phải bottleneck — tối ưu RAG (rerank top-k, cache embedding) mang lại ROI cao hơn.
+> Presidio bắt tốt VN_CCCD/VN_PHONE; lọc DATE_TIME tránh false positive ("năm 2024").  
+> NeMo + keyword pre-filter đạt 20/20 adversarial; bổ sung intent embedding khi attack mới.  
+> LLM-as-judge κ=1.0 khi neo ground_truth; bắt buộc swap-and-average (position bias ~40%).  
+> Deploy: metadata filter theo version policy (v2024) để giảm version conflict.  
+> Guard latency không bottleneck — ưu tiên tối ưu multi_hop retrieval (rerank, chunk overlap).
